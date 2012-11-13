@@ -6,27 +6,28 @@
     <script src="jquery.js"></script>
   </head>
   <body style="text-align: center">     
-      <h1>Topic 1 | Items: 1-7</h1>
+      <h1>Topic 1 | Items: 1-8</h1>
             <button id="btn">Click me</button><br>
             <textarea id="alias">Jojo</textarea>            
-            <div class="wsresponse"></div>            
+            <div class="wsresponse"></div>
+            <button id="next">Next Points</button>
             <script>
             window.onload = function(){ alert("Page loaded");$('#alias').focus(); }
             $('#btn').text("Go!"); 
-            $('#btn').bind("click", function(){
-                
-                
-               
-                //Calls a function to talk to a web service
+            $('#btn').bind("click", function(){                
+                //Calls a function to make a request to a web service
                 getInfo('http://bootcamp.aws.af.cm/welcome/'+$('#alias').text(), function(data,ok) {
                       //Callback function when we recieve data from the ws
                         if(ok == true){
-                            $('.wsresponse').append('<p>'+data+'</p>');
+                            $('.wsresponse').html('<p>'+data+'</p>');
                         }else{                           
-                            $('.wsresponse').append('<p><font color="red">'+data+'</font></p>');
+                            $('.wsresponse').html('<p><font color="red">'+data+'</font></p>');
                         }
-                    });
-            })                              
+                        //            Textbox name           DIV
+                         highlightName($('#alias').text(),"wsresponse");
+                    }); 
+            })           
+            
                     
             //Actual request to the ws
             function getInfo(url, callback) {
@@ -35,7 +36,8 @@
                     url: url,
                     dataType: 'json',
                     crossDomain: true,
-                    success: function (data) {
+                    success: function (data) 
+                    {   
                         callback(data.response,true);
                     },
                     error: function failed (data) {
@@ -43,6 +45,22 @@
                     }
                    });
                   }   
+                  
+            $('#next').bind("click", function(){ 
+                $(window.location).attr('href', 'next.html');
+            })
+            
+            function highlightName(name,element){
+                //Create regexp with the user name (From textbox)                
+                var regexp = new RegExp(name,'ig');
+                //Current html from the div component
+                var currentHtml = $('.'+element).html();
+                 //I replace the div content
+                var newHtml = currentHtml.replace(regexp,'<FONT style="BACKGROUND-COLOR: yellow">'+name+'</font>');
+                //Set the new div html 
+                $('.'+element).html(newHtml);   
+            }           
+                  
         </script> 
     </body>
     
