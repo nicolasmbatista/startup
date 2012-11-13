@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Globant :: Welcome to the HTML5 bootcamp</title>
+    <script src="jquery.js"></script>
+  </head>
+  <body style="text-align: center">     
+      <h1>Topic 1 | Items: 1-7</h1>
+            <button id="btn">Click me</button><br>
+            <textarea id="alias">Jojo</textarea>            
+            <div class="wsresponse"></div>            
+            <script>
+            window.onload = function(){ alert("Page loaded");$('#alias').focus(); }
+            $('#btn').text("Go!"); 
+            $('#btn').bind("click", function(){
+                
+                
+               
+                //Calls a function to talk to a web service
+                getInfo('http://bootcamp.aws.af.cm/welcome/'+$('#alias').text(), function(data,ok) {
+                      //Callback function when we recieve data from the ws
+                        if(ok == true){
+                            $('.wsresponse').append('<p>'+data+'</p>');
+                        }else{                           
+                            $('.wsresponse').append('<p><font color="red">'+data+'</font></p>');
+                        }
+                    });
+            })                              
+                    
+            //Actual request to the ws
+            function getInfo(url, callback) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+                        callback(data.response,true);
+                    },
+                    error: function failed (data) {
+                      callback("Error: "+data.text,false);
+                    }
+                   });
+                  }   
+        </script> 
+    </body>
+    
+</html>
