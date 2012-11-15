@@ -21,7 +21,8 @@
             </div>
             <div data-role ="footer">
                <button id="btnMovies" data-transition="fade">Movies List</button>
-               <button id="next" data-transition="fade">Next Points</button> 
+               <button id="next" data-transition="fade">Next Points</button>
+               <button id="loader" data-transition="fade">Loader</button> 
             </div>
        </div>
           
@@ -71,6 +72,9 @@
             
              $('#next').bind("click", function(){ 
                 $(window.location).attr('href', 'multipage.html');
+            })
+             $('#loader').bind("click", function(){ 
+                $(window.location).attr('href', 'Loader.html');
             })
             
             $(document).keydown(function(event) {

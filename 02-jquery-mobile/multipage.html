@@ -15,14 +15,14 @@
             <div data-role="header" data-theme="b">
                 <h1>Topic 2 | Items: 7-9</h1>
             </div>
-            <div data-role="content" id="divMovies">
+            <div data-role="content">
                 <h2>Welcome to page 1!</h2>
                 <p><a href="#two" data-role="button" data-transition="pop" data-rel="dialog">Send me to number 2 bro!</a></p>
                 <p><a href="#three" data-role="button" data-transition="turn">Meh, i don't like number one, perhaps page 3?</a></p>
             </div>
             <div data-role="footer" data-theme="b">
-                <button id="back" data-transition="fade">Index</button>
-                <button id="btnMovies" data-transition="fade">Movies</button> 
+                <button class="back" data-transition="fade">Index</button>
+                <button class="btnMovies" data-transition="fade">Movies</button> 
                 <br>
                 Globant - Bootcamp 2012
             </div>            
@@ -33,7 +33,7 @@
             <div data-role="header">
                 <h1>Topic 2 | Items: 7-9</h1>
             </div>
-            <div data-role="content" id="divMovies">
+            <div data-role="content">
                 <h2>Hey! i'm number Two</h2>
                 <p>Here we talk about chicks and beer. Enjoy it!</p>
                 <p><a href="#one" data-role="button" data-direction="reverse">I don't wanna go back to number one!</a></p>
@@ -41,8 +41,8 @@
                 <p><a href="#three" data-role="button" data-direction="reverse">I need a rest.. let's go to number three</a></p>
             </div>
             <div data-role="footer">
-                <button id="back" data-transition="fade">Index</button>
-                <button id="btnMovies" data-transition="fade">Movies</button> 
+                <button class="back" data-transition="fade">Index</button>
+                <button class="btnMovies" data-transition="fade">Movies</button> 
                 <br>
                 Globant - Bootcamp 2012
             </div>            
@@ -53,7 +53,7 @@
             <div data-role="header" data-theme="e">
                 <h1>Topic 2 | Items: 7-9</h1>
             </div>
-            <div data-role="content" id="divMovies">
+            <div data-role="content">
                 <h2>Page number 3</h2>
                 <p>Hello my dear friend. You can rest here for only $199.99 the night.</p>
                 <h6>Cold coke not included</h6>
@@ -61,8 +61,8 @@
                 <p><a href="#two" data-role="button" data-transition="pop" data-rel="dialog">Let's roll bro! Page two. Now!</a></p>
             </div>
             <div data-role="footer" data-theme="e">
-                <button id="back" data-transition="fade">Index</button>
-                <button id="btnMovies" data-transition="fade">Movies</button> 
+                <button class="back" data-transition="fade">Index</button>
+                <button class="btnMovies" data-transition="fade">Movies</button> 
                 <br>
                 Globant - Bootcamp 2012
             </div>            
@@ -73,7 +73,7 @@
             <div data-role="header" data-theme="a">
                 <h1>Topic 2 | Items: 7-9</h1>
             </div>
-            <div data-role="content" id="divMovies">
+            <div data-role="content">
                 <h2>Here you go!</h2>
                 <p><a href="#two" data-role="button" data-transition="flow">Tasty! Let's go back</a></p>
             </div>
@@ -93,10 +93,10 @@
                    }
                 });   
                        
-                $('#back').bind("click", function(){ 
+                $('.back').bind("click", function(){ 
                     $(window.location).attr('href', 'index.html');
                 })
-                 $('#btnMovies').bind("click", function(){ 
+                 $('.btnMovies').bind("click", function(){ 
                     $(window.location).attr('href', 'next.html');
                 })
             });  
