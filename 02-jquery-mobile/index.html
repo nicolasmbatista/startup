@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Globant :: Bootcamp :: 2nd Topic</title>
+    <script src="jquery.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <script src="jquerymobile.js"></script>
+  </head>
+  <body style="text-align: center">
+       <div data-role="page">
+            <div data-role="header">
+                 <h1>Topic 2 | Items: 1-6</h1>
+            </div>
+            <div data-role="content">
+                 <button id="btn">Click me</button><br>
+                 <textarea id="alias">Jojo</textarea>   
+
+                 <div class="wsresponse"></div>
+            </div>
+            <div data-role ="footer">
+               <button id="btnMovies" data-transition="fade">Movies List</button>
+               <button id="next" data-transition="fade">Next Points</button> 
+            </div>
+       </div>
+          
+          
+            <script>
+            window.onload = function(){ alert("Page loaded");$('#alias').focus();  }
+            $('#btn').text("Go!"); 
+            $('#btn').bind("click", function(){     
+
+                $.mobile.showPageLoadingMsg();
+                $.mobile.showPageLoadingMsg(<img src='GreenLoader.gif'></img>);
+                
+                //Calls a function to make a request to a web service
+                getInfo('http://bootcamp.aws.af.cm/welcome/'+$('#alias').text(), function(data,ok) {
+                      //Callback function when we recieve data from the ws
+                        if(ok == true){
+                            $('.wsresponse').html('<p>'+data+'</p>');
+                        }else{                           
+                            $('.wsresponse').html('<p><font color="red">'+data+'</font></p>');
+                        }
+                        //            Textbox name           DIV
+                         highlightName($('#alias').text(),"wsresponse");
+                         $.mobile.hidePageLoadingMsg();
+                    }); 
+            })          
+                    
+            //Actual request to the ws
+            function getInfo(url, callback) {                
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) 
+                    {   
+                        callback(data.response,true);
+                    },
+                    error: function failed (data) {
+                      callback("Error: "+data.text,false);
+                    }
+                   });
+                  }   
+                  
+            $('#btnMovies').bind("click", function(){ 
+                $(window.location).attr('href', 'next.html');
+            })
+            
+             $('#next').bind("click", function(){ 
+                $(window.location).attr('href', 'multipage.html');
+            })
+            
+            $(document).keydown(function(event) {
+                    if (event.keyCode == '27') {
+                       $.mobile.hidePageLoadingMsg();
+                     }
+                  }); 
+            
+            function highlightName(name,element){
+                //Create regexp with the user name (From textbox)                
+                var regexp = new RegExp(name,'ig');
+                //Current html from the div component
+                var currentHtml = $('.'+element).html();
+                 //I replace the div content
+                var newHtml = currentHtml.replace(regexp,'<FONT style="BACKGROUND-COLOR: yellow">'+name+'</font>');
+                //Set the new div html 
+                $('.'+element).html(newHtml);   
+            }           
+        </script>        
+    </body>    
+</html>
