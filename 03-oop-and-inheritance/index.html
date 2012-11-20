@@ -1,12 +1,103 @@
 <html>
 	<head>
 		 <script src="Movie.js"></script>
+		 <script src="jquery.js"></script>
 	</head>
 	<body>
 	<body>
 	<script>
-		terminator = new Movie();
-		terminator.setAttribute('name','Terminator');
-		terminator.getAttribute('name');
+	function getMovies(callback){
+                $.ajax({
+                    type: 'GET',
+                    url: "http://bootcamp.aws.af.cm/movies",
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) 
+                    {                           
+                        callback(data);
+                    },
+                    error: function failed (data) {
+                      alert("Error: "+data.text,false);
+                    }
+                   });
+            }
+        
+		$(document).ready(function(){ 
+			var favMovies = [];
+        	var movieObserver = new MovieObserver();
+			 getMovies(
+                    function(jsonObj){                        
+                        movies = jsonObj.d.results;                      
+                        for(var i = 0 ; i < 10; i++ ){
+                            var res = movies[i];
+                            var newMovie = new Movie();
+                            newMovie.setAttribute('name',res.Name);
+                            newMovie.setAttribute('year',res.ReleaseYear);
+                            newMovie.setAttribute('synopsis',res.Synopsis);
+                            newMovie.addObserver(movieObserver);
+                            favMovies.push(newMovie);
+                        }
+                        	
+                    	favMovies[5].play();
+                    	favMovies[4].stop();
+                    	//favMovies[7].like(); //Doesn't have this function
+                        extend(Movie.prototype,Social);
+                        favMovies[0].like(); //Now it does
+                        favMovies[1].share('Eminem');
+
+                    }
+                    
+                  );
+            });
+            
+
+        //DownloadableMovie    
+        function DownloadableMovie(){}
+
+        //Inherits from Movie
+		DownloadableMovie.prototype = new Movie();
+
+		//We add some functionality 
+		DownloadableMovie.prototype.download = function (){
+			console.log('Donwloading '+ this.getAttribute('name') );
+		}
+
+
+
+		function extend(destination, source) {
+		  for (var k in source) {
+		    if (source.hasOwnProperty(k)) {
+		      destination[k] = source[k];
+		    }
+		  }
+		  return destination; 
+		}
+
+
+		//In this case, we want to extend our Movie class with anotherone call Social
+		var Social = {
+		  share: function(friendName) {
+		    console.log('Sharing ' + this.getAttribute('name') + ' with ' + friendName);
+		  },
+		  like: function() {
+		    console.log('You like ' + this.getAttribute('name'));
+		  }
+		};    
+
+		//To test the mixin:
+
+		/*
+			extend(Movie.prototype,Social);
+			var myMovie = new Movie();
+			myMovie.setAttribute('name','myName');
+			myMovie.likE();
+			myMovie.share('My Best friend');
+
+
+		*/
+
+
+
+
 	</script>
 </html>
