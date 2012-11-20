@@ -32,9 +32,9 @@ Movie.prototype.stop = function(){
 Movie.prototype.addObserver = function (observer){
 		this.observers.push(observer);
 	}
-*/
 
-/*
+
+
 function MovieObserver(){
 
 }
@@ -65,6 +65,8 @@ terminator.stop();
 //****************************************************//
 
 //Now the MovieObserver class has a public function notify (it works the same)
+
+
 var MovieObserver = function(){
 	return {
 		notify : function(value,movie){
@@ -112,4 +114,3 @@ var Movie = function(){
 		
 	}
 }
-
