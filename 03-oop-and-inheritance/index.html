@@ -21,6 +21,7 @@
                     }
                    });
             }
+
         
 		$(document).ready(function(){ 
 			var favMovies = [];
@@ -41,7 +42,10 @@
                     	favMovies[5].play();
                     	favMovies[4].stop();
                     	//favMovies[7].like(); //Doesn't have this function
+
+                        //extend works if Movie isn't a Module (unncomment Movie.js)
                         extend(Movie.prototype,Social);
+                        //augment(Movie.prototype,Social);
                         favMovies[0].like(); //Now it does
                         favMovies[1].share('Eminem');
 
@@ -62,9 +66,20 @@
 			console.log('Donwloading '+ this.getAttribute('name') );
 		}
 
+		//To test the DownloadableMovie:
+
+		/*
+			var myD = new DownloadableMovie();
+			myD.setAttribute('name','asd');
+			myD.download();
+		*/
 
 
-		function extend(destination, source) {
+
+        //Movie is NOT a Module
+        		
+        function extend(destination, source) {
+            debugger;
 		  for (var k in source) {
 		    if (source.hasOwnProperty(k)) {
 		      destination[k] = source[k];
@@ -72,6 +87,27 @@
 		  }
 		  return destination; 
 		}
+
+        function augment( receivingClass, givingClass ) {
+
+            for ( var methodName in givingClass.prototype ) {
+
+                // check to make sure the receiving class doesn't 
+                // have a method of the same name as the one currently 
+                // being processed 
+                if ( !Object.hasOwnProperty(receivingClass.prototype, methodName) ) {
+                    receivingClass.prototype[methodName] = givingClass.prototype[methodName];
+                }
+
+                // Alternatively:
+                // if ( !receivingClass.prototype[methodName] ) {
+                //  receivingClass.prototype[methodName] = givingClass.prototype[methodName];
+                // }
+            }
+            
+        }
+        
+
 
 
 		//In this case, we want to extend our Movie class with anotherone call Social
@@ -92,11 +128,11 @@
 			myMovie.setAttribute('name','myName');
 			myMovie.likE();
 			myMovie.share('My Best friend');
-
-
 		*/
 
+		//Actor Class
 
+        
 
 
 	</script>
