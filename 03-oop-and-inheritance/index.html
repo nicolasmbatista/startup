@@ -40,12 +40,8 @@
             myD.setAttribute('name','asd');
             myD.download();
         */
-
-
-
                 
         function extend(destination, source) {
-            debugger;
           for (var k in source) {
             if (source.hasOwnProperty(k)) {
               destination[k] = source[k];
@@ -65,22 +61,13 @@
           }
         };    
 
-        //To test the mixin:
-
-        /*
-            extend(Movie.prototype,Social);
-            var myMovie = new Movie();
-            myMovie.setAttribute('name','myName');
-            myMovie.likE();
-            myMovie.share('My Best friend');
-        */
-
         //Actor Class
 
-        
 		$(document).ready(function(){ 
-			var favMovies = [];
-        	var movieObserver = new MovieObserver();
+		
+             var favMovies = [];
+             var movieObserver = new MovieObserver();
+             extend(Movie.prototype,Social);
 			 getMovies(
                     function(jsonObj){                        
                         movies = jsonObj.d.results;                      
@@ -94,14 +81,13 @@
                             favMovies.push(newMovie);
                         }
                         	
-                    	favMovies[5].play();
-                    	favMovies[4].stop();
-                    	//favMovies[7].like(); //Doesn't have this function
-
-                        //extend works if Movie isn't a Module (unncomment Movie.js)
-                        extend(Movie.prototype,Social);
-                        favMovies[0].like(); //Now it does
-                        favMovies[1].share('Eminem');
+                        //Movie methods
+                    	favMovies[0].play();
+                    	favMovies[1].stop();
+                    	
+                        //Movie + Social Methods
+                        favMovies[7].like(); 
+                        favMovies[8].share('Eminem');
 
                     }
                     

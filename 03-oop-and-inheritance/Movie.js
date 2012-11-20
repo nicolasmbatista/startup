@@ -79,20 +79,29 @@ var MovieObserver = function(){
 	}
 }
 
+
+
+
 //And Movie class has attributes and observers private to the user, along with a trigger function. Rest of the methods are public
-var Movie = function(){
+var Movie = function () {
+	//Constructor
+	var Movie = function () {
+	};
+
+	//Private vars and functions
 	var attributes = {};
 	var observers = [];
 	//I can't use "this" in this function, cause when its called, this = window (see play and stop)
 	var trigger = function(evt,movie){
+				console.log('Event ' + evt + ' fired!');
 				for(var i = 0; i < observers.length ; i++){
 					observers[i].notify(evt,movie);
-				}
-				console.log('Event ' + evt + ' fired!');
+				}				
 			};
-	
-	return {
-		getAttribute : function (key){
+			
+	Movie.prototype = {
+		constructor : Movie
+		,getAttribute : function (key){
 			return attributes[key];
 			}
 
@@ -110,7 +119,10 @@ var Movie = function(){
 
 		,addObserver : function (observer){
 			observers.push(observer);
-		}
-		
-	}
-}
+		}		
+	};
+
+	return Movie;
+
+
+};
