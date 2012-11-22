@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Template Engines</title>
+    <script src="lib/dust.js"></script>
+    <script src="lib/handlebars.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/jquery.js"></script>
+  </head>
+  <body id="cuerpo">
+  	
+  	<script id="professional-profile-template" type="text/x-handlebars-template">
+	  	<div class="profile" >
+		  <table align=center border=1>
+		  	<tr>
+		  		<td>
+				  <img src = "{{profileImg}}"></img>
+				  </td>
+				  <td>
+				  <h1>{{name}}</h1>
+				  <h2>{{currentJob}}</h2>
+				  <h3>{{location}} | {{industry}}</h3>
+		   		</td>
+	   		</tr>
+   			<tr><td colspan=2>
+   				<h3>Personal description</h3>
+			  	<p>		  
+		    		{{description}}
+				</p>
+				<h3>Job Experience</h3>
+				<p >
+					{{#list jobs}}<b>{{company}}</b>{{description}}{{/list}}
+				</p>
+			</td></tr>
+			</table>
+		</div>
+	</script>
+	<script>
+		window.onload = function(){ 
+			var myProfile = {
+				name : "Nicolas Batista"
+				,currentJob : "Student at UNCPBA"
+				,location : "Argentina"
+				,industry : "Computer Games"
+				,description : "Im an enthusiastic computer games programmer."
+				,profileImg : "http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/2/000/1a6/31d/269e581.jpg"
+				,jobs: [
+				    {company: "LaYapa 2005-2008: ", description: "Worked as manager at customer service with two people in charge."},
+				    {company: "Jojocompany 2008-2012: ", description: "Just creating cool stuff."}
+				  ]
+			};
+
+			Handlebars.registerHelper('list', function(items, options) {
+			  var out = "<ul>";
+
+			  for(var i=0, l=items.length; i<l; i++) {
+			    out = out + "<li>" + options.fn(items[i]) + "</li>";
+			  }
+
+			  return out + "</ul>";
+			});
+		  	var source   = $("#professional-profile-template").html();
+			var template = Handlebars.compile(source);
+			var context = myProfile
+			var html    = template(context);
+			$('#cuerpo').html(html);
+		}
+	</script>
+  </body>
+</html>
