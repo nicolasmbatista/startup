@@ -6,11 +6,17 @@
     <script src="lib/handlebars.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/jquery.js"></script>
+    <script src="templates/profile.js"></script>
   </head>
-  <body id="cuerpo">
+  <body>
+  	<div  id="handlebars">
+  	</div>
+  	<div id="dust">
+  	</div>
   	
   	<script id="professional-profile-template" type="text/x-handlebars-template">
-	  	<div class="profile" >
+	  	<div class="profile-handlebars" style="text-align:center">
+	  	<h1><u>Handlebars</u></h1>
 		  <table align=center border=1>
 		  	<tr>
 		  		<td>
@@ -63,7 +69,12 @@
 			var template = Handlebars.compile(source);
 			var context = myProfile
 			var html    = template(context);
-			$('#cuerpo').html(html);
+			$('#handlebars').html(html);
+
+			dust.loadSource(dust);
+			dust.render("dust", myProfile, function(err, out) {
+			  $('#dust').html(out);
+			});
 		}
 	</script>
   </body>
