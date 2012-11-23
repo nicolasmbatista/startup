@@ -7,7 +7,7 @@
     }, null).write("</ul></td></tr></table></div>");
   }
   function body_1(chk, ctx) {
-    return chk.write("<li>").reference(ctx.get("company"), ctx, "h").write(", ").reference(ctx.get("description"), ctx, "h").write("</li>");
+    return chk.write("<li><b>").reference(ctx.get("company"), ctx, "h").write("</b> ").reference(ctx.get("description"), ctx, "h").write("</li>");
   }
   return body_0;
 })();

@@ -13,6 +13,8 @@
   	</div>
   	<div id="dust">
   	</div>
+  	<div id="underscore">
+  	</div>
   	
   	<script id="professional-profile-template" type="text/x-handlebars-template">
 	  	<div class="profile-handlebars" style="text-align:center">
@@ -43,6 +45,7 @@
 	</script>
 	<script>
 		window.onload = function(){ 
+			//myProfile JSON
 			var myProfile = {
 				name : "Nicolas Batista"
 				,currentJob : "Student at UNCPBA"
@@ -56,6 +59,9 @@
 				  ]
 			};
 
+			//****************************************************//
+			//					HANDLEBARS 						  //
+			//****************************************************//
 			Handlebars.registerHelper('list', function(items, options) {
 			  var out = "<ul>";
 
@@ -71,10 +77,25 @@
 			var html    = template(context);
 			$('#handlebars').html(html);
 
+
+			//****************************************************//
+			//					DUST 							  //
+			//****************************************************//
 			dust.loadSource(dust);
 			dust.render("dust", myProfile, function(err, out) {
 			  $('#dust').html(out);
 			});
+
+
+			//****************************************************//
+			//					Underscore 						  //
+			//****************************************************//
+
+			var compiled = _.template('<div class="profile-underscore" style="text-align:center"><h1><u>Underscore</u></h1><table align=center border=1><tr><td><img src = "<%= profileImg %>"></img></td><td><h1><%= name %></h1><h2><%= currentJob %></h2><h3><%= location %> | <%= industry %></h3></td></tr><tr><td colspan=2><h3>Personal description</h3><p><%= description %></p><h3>Job Experience</h3><p><ul><% _.each(jobs, function(items) { %><li><b><%= items.company %></b><%= items.description %></li><% }); %></ul></p></td></tr></table></div>',myProfile);
+			$('#underscore').html(compiled);
+
+
+
 		}
 	</script>
   </body>
