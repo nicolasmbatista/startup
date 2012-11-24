@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head id="head"> 
+    <title>Con RequireJS</title>
+    <script data-main="scripts/main" src="scripts/require.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  </head>
+  <body id="body">
+  	<script id="template" type="text/x-handlebars-template">
+    <div data-role="page" class="page">
+      <div data-role="header">
+      <button id="btn">Click me</button>
+      </div>
+      <div class="profile-handlebars" style="text-align:center" data-role="content">
+        <h1><u>Handlebars</u></h1>
+        <table align=center border=1>
+          <tr>
+            <td>
+            <img src = "{{profileImg}}"></img>
+            </td>
+            <td>
+            <h1>{{name}}</h1>
+            <h2>{{currentJob}}</h2>
+            <h3>{{location}} | {{industry}}</h3>
+            </td>
+          </tr>
+          <tr><td colspan=2>
+            <h3>Personal description</h3>
+            <p>     
+              {{description}}
+          </p>
+          <h3>Job Experience</h3>
+          <p >
+            {{#list jobs}}<b>{{company}}</b>{{description}}{{/list}}
+          </p>
+        </td></tr>
+        </table>
+      </div>
+      <div data-role="footer">
+      </div>
+    </div>
+  </script>
+  </body>
+</html>
