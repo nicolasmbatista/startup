@@ -5,7 +5,9 @@ requirejs.config({
 		jquery : 'lib/jquery',
 		backbone : 'lib/backbone',
 		handlebars : 'lib/handlebars',
-		movieModel : 'app/model/movieModel'
+		movieModel : 'app/model/movieModel',
+		movieView : 'app/view/movieView',
+		movieCollection : 'app/collection/movieCollection'
 	},
 
     shim: {
@@ -20,7 +22,7 @@ requirejs.config({
     }
 });
 
-require(["backbone","handlebars","movieModel"], function(underscore,handlebars,movieModel) {
+require(["backbone","handlebars","movieModel","movieView","movieCollection"], function(underscore,handlebars,movieModel,movieView,movieCollection) {
 	var myProfile = {
 				name : "Nicolas Batista"
 				,currentJob : "Student at UNCPBA"
@@ -48,11 +50,27 @@ require(["backbone","handlebars","movieModel"], function(underscore,handlebars,m
 	var context = myProfile
 	var html    = template(context);
 	$('body').html(html);
-	//$.mobile.hidePageLoadingMsg();
-	var a = new movieModel();
-	console.log(a.get("name"));
 
-	a.set("name","terminator");
-	console.log(a.get("name"));
+	//Model test
+	var terminator = new movieModel();//Empty
+	var ants = new movieModel({name : "ants"});//from a direct json
+	var prof = new movieModel(myProfile); //from my profil json
+	console.log("new movie created: "+prof.get("name"));
+	console.log("new movie created: "+terminator.get("name"));
+	terminator.set("name","terminator");
+	console.log("Changed movie name: "+terminator.get("name"));
+
+	//Collection test
+	var col = new movieCollection();
+	col.add(terminator);
+	col.add(ants);
+	col.add(prof);
+
+	for(var i = 0; i < col.length ; i++){
+			console.log("Movie "+ i +" from my collection: "+col.at(i).get("name"));
+	}
+
+	//View Test
 
 });
+
