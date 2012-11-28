@@ -1,5 +1,5 @@
-define(['backbone'], function (Backbone) {
-  return Backbone.Model.extend({
+define(['backbone','handlebars'], function (Backbone,handlebars) {
+  return Backbone.View.extend({
 
 	tagName: "li",
 
@@ -11,10 +11,14 @@ define(['backbone'], function (Backbone) {
 	  "click .button.remove": "remove"
 	},
 
+
+	template: Handlebars.compile($('#template').html()),
+
 	 render: function() {
-      this.$el.html(<h1>Movies!</h1>);
+      //this.$el.html(this.template(this.model.toJSON()));
+      this.$el.html('<h1>MOvies</h1>');
       return this;
-    },
+    }
     
   });
 });

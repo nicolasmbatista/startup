@@ -22,7 +22,7 @@ requirejs.config({
     }
 });
 
-require(["backbone","handlebars","movieModel","movieView","movieCollection"], function(underscore,handlebars,movieModel,movieView,movieCollection) {
+require(["backbone","movieModel","movieView","movieCollection"], function(underscore,movieModel,movieView,movieCollection) {
 	var myProfile = {
 				name : "Nicolas Batista"
 				,currentJob : "Student at UNCPBA"
@@ -36,7 +36,9 @@ require(["backbone","handlebars","movieModel","movieView","movieCollection"], fu
 				  ]
 			};
 
-	Handlebars.registerHelper('list', function(items, options) {
+
+			//Handlebars list
+	/*Handlebars.registerHelper('list', function(items, options) {
 	  var out = "<ul>";
 
 	  for(var i=0, l=items.length; i<l; i++) {
@@ -44,12 +46,16 @@ require(["backbone","handlebars","movieModel","movieView","movieCollection"], fu
 	  }
 
 	  return out + "</ul>";
-	});
-  	var source   = $('#template').html();
+	});*/
+
+		//Handlebars template generation
+  	/*var source   = $('#template').html();
 	var template = Handlebars.compile(source);
 	var context = myProfile
-	var html    = template(context);
-	$('body').html(html);
+	var html    = template(context);*/
+
+	//set the html from the template
+	
 
 	//Model test
 	var terminator = new movieModel();//Empty
@@ -70,6 +76,9 @@ require(["backbone","handlebars","movieModel","movieView","movieCollection"], fu
 			console.log("Movie "+ i +" from my collection: "+col.at(i).get("name"));
 	}
 
+
+	var view = new movieView({model : terminator, el : $('#testdiv')});
+	$('body').html(view.render().el);
 	//View Test
 
 });
