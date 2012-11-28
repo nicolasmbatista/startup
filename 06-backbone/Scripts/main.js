@@ -22,64 +22,30 @@ requirejs.config({
     }
 });
 
-require(["backbone","movieModel","movieView","movieCollection"], function(underscore,movieModel,movieView,movieCollection) {
-	var myProfile = {
-				name : "Nicolas Batista"
-				,currentJob : "Student at UNCPBA"
-				,location : "Argentina"
-				,industry : "Computer Games"
-				,description : "Im an enthusiastic computer games programmer."
-				,profileImg : "http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/2/000/1a6/31d/269e581.jpg"
-				,jobs: [
-				    {company: "LaYapa 2005-2008: ", description: "Worked as manager at customer service with two people in charge."},
-				    {company: "Jojocompany 2008-2012: ", description: "Just creating cool stuff."}
-				  ]
-			};
-
-
-			//Handlebars list
-	/*Handlebars.registerHelper('list', function(items, options) {
-	  var out = "<ul>";
-
-	  for(var i=0, l=items.length; i<l; i++) {
-	    out = out + "<li>" + options.fn(items[i]) + "</li>";
-	  }
-
-	  return out + "</ul>";
-	});*/
-
-		//Handlebars template generation
-  	/*var source   = $('#template').html();
-	var template = Handlebars.compile(source);
-	var context = myProfile
-	var html    = template(context);*/
-
-	//set the html from the template
-	
+require(["backbone","movieModel","movieView","movieCollection"], function(underscore,movieModel,movieView,movieCollection) {	
 
 	//Model test
 	var terminator = new movieModel();//Empty
-	var ants = new movieModel({name : "ants"});//from a direct json
-	var prof = new movieModel(myProfile); //from my profil json
-	console.log("new movie created: "+prof.get("name"));
+	var ants = new movieModel({name : "ants", year : "1990", synopsis : "boring ants"});//from a direct json
 	console.log("new movie created: "+terminator.get("name"));
 	terminator.set("name","terminator");
+	terminator.set("year","1992");
+	terminator.set("synopsis","Bla bla terminator tutututuut hasta la vista baby")
 	console.log("Changed movie name: "+terminator.get("name"));
 
 	//Collection test
 	var col = new movieCollection();
 	col.add(terminator);
 	col.add(ants);
-	col.add(prof);
 
 	for(var i = 0; i < col.length ; i++){
 			console.log("Movie "+ i +" from my collection: "+col.at(i).get("name"));
 	}
 
-
-	var view = new movieView({model : terminator, el : $('#testdiv')});
-	$('body').html(view.render().el);
 	//View Test
+	var view = new movieView({collection : col, el : $('.testdiv')});
+	$('.testdiv').append(view.render());
+	
 
 });
 

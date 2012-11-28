@@ -1,22 +1,15 @@
 define(['backbone','handlebars'], function (Backbone,handlebars) {
   return Backbone.View.extend({
 
-	tagName: "li",
-
-	className: "body",
-
-	events: {
-	  "click .button.add" : "openAddDialog",
-	  "click .button.edit":   "openEditDialog",
-	  "click .button.remove": "remove"
-	},
-
+	className: "testdiv",
 
 	template: Handlebars.compile($('#template').html()),
 
 	 render: function() {
-      //this.$el.html(this.template(this.model.toJSON()));
-      this.$el.html('<h1>MOvies</h1>');
+	 	for(var i = 0; i < this.collection.length ; i++){
+			this.$el.append(this.template(this.collection.at(i).toJSON()));
+		}
+      
       return this;
     }
     
