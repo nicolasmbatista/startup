@@ -1,0 +1,6 @@
+html{background:white;color:black}
+header{text-align: center}
+hgroup{border: groove;border-width: 20px;background-color: rgb(220,130,0);}
+article{border: double; border-radius: 4}
+p{font-style: normal;font-size: 4}
+footer{font-style: italic;text-align: center}
