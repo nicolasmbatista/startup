@@ -16,14 +16,21 @@ ul{
 h2.test{
 	background-color: lightgray;
 }
+div.dropbox{
+	border: solid;
+	border-width: 5px;
+	width: 600px;
+	height: 100px;
+}
 li{
 	display: inline;
 	list-style: square;
 }
 
 textarea.jsarea{
-	width: 800px;
+	width: 600px;
 	height: 200px;
+
 }
 
 article{

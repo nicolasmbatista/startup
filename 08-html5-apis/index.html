@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" manifest="html5api.appcache">
 	<head>
 		<meta charset="utf-8" />
 		<script src="js/jquery.js"></script>
@@ -27,16 +27,56 @@
 				<div>
 					<p>Insert your javascript code here:</p>
 					<p><textarea class="jsarea"></textarea></p>
-					<p><a class="jsexec" href="javascript: run();" >Go!</a></p>
-					<script class="userjs">
-					</script>
-					<script>
-						function run(){
-							$('.userjs').append('<script>'+ function(){$('.jsarea').text()} +'</scr'+'ipt>');
-						}
-					</script>
+					<p><div class="dropbox" ondragover="return false">Drag a text file here to load it</div><output class="list"></output></p>
+					<p>
+						<button class="saveBtn">Save</button>
+						<button class="loadBtn">Load</button>
+					</p>						
 				</div>
 			</article>
 		</section>
+		<script>
+				//Saving and loading to/from local storage
+			 $(document).ready(function(){
+				$('.saveBtn').bind("click", function(){ 
+					localStorage.setItem("code", $('.jsarea').val());
+				});
+
+				$('.loadBtn').bind("click", function(){ 
+					var code = localStorage.getItem("code");
+					if( code != null)
+						$('.jsarea').val(code);
+				});
+
+				//Drag and Drop (Load)
+
+				jQuery.event.props.push('dataTransfer');
+
+				$('.dropbox').bind('drop', function(evt) {
+					evt.stopPropagation();
+				    evt.preventDefault();
+					var files = evt.dataTransfer.files;
+					var file = files[0];
+					var reader = new FileReader();
+
+					reader.onload = (function(theFile) {
+				        return function(e) {
+				          $('.jsarea').val(e.target.result);
+				        };
+				      })(file);
+
+					reader.readAsText(file);
+				});
+
+				$('.dropbox').bind('dragover',function handleDragOver(evt) {
+				    evt.stopPropagation();
+				    evt.preventDefault();
+				    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+				});
+
+				//Cache manifest
+
+			});
+		</script>
 	</body>
 </html>
